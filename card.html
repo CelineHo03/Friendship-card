@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cute Digital Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            min-height: 100vh;
+            background-color: #F08080;
+            background: linear-gradient(135deg, #F08080 0%, #FFC0CB 100%);
+            padding: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 700px;
+            min-height: 500px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .cute-button {
+            position: relative;
+            text-decoration: none;
+            color: #000;
+            width: 200px;
+            height: 50px;
+            display: inline-block;
+            line-height: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background-color: #fff;
+            border: 4px solid #000;
+            box-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 4px 0 #000, 5px 5px 0 #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .cute-button:hover {
+            background-color: #FFC0CB;
+            transform: translateY(-2px);
+            box-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 4px 0 #000, 5px 5px 0 #000, 6px 6px 0 #000;
+        }
+        
+        .cute-button:active {
+            transform: translateY(2px);
+            box-shadow: 1px 1px 0 #000, 2px 2px 0 #000;
+        }
+        
+        .gif-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+        }
+        
+        .gif-container.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gif-container img {
+            width: 290px;
+            height: 270x;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .message {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #FFC0CB 0%, #FFB6C1 100%);
+            border-radius: 20px;
+            border: 3px solid #000;
+            box-shadow: 3px 3px 0 #000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .message p {
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .heart-decoration {
+            position: absolute;
+            font-size: 24px;
+            color: #FF69B4;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .heart-decoration:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .heart-decoration:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+        
+        .heart-decoration:nth-child(3) {
+            bottom: 7%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+        
+        .heart-decoration:nth-child(4) {
+            bottom: 2%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .reset-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFB6C1;
+            border: 2px solid #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-button.show {
+            opacity: 1;
+        }
+        
+        .reset-button:hover {
+            background-color: #FFC0CB;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .cute-button {
+                width: 180px;
+                font-size: 12px;
+            }
+            
+            .gif-container img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .message {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .banner {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .banner div {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+        
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1s ease-out forwards;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="heart-decoration">💕</div>
+        <div class="heart-decoration">💖</div>
+        <div class="heart-decoration">💝</div>
+        <div class="heart-decoration">💗</div>
+        
+        <button class="cute-button" id="mainButton">
+            Press Me!（＾ｖ＾）
+        </button>
+        
+        <div class="gif-container" id="gifContainer">
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWZ2ZWs3am8yOWVvYnI1dDV0NjY2amIxMTQ5MHJqMXI2djdiZHBsNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/apifB0Yl0cfra6mERU/giphy.gif" alt="Cute cat gif" id="loadingImage">
+        </div>
+        
+        <div class="message" id="message">
+            <p>Just here to remind you..</p>
+        </div>
+        
+        <button class="reset-button" id="resetButton">
+            Start Over ↻
+        </button>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let isFinished = false;
+        const messages = [
+            "Hi there!",
+            "Just here to remind you..",
+            "You are absolutely AMAZING! ✨",
+            "You make my world sparklii sparklii 🌟",
+            "You deserve allllllll the love in the world! 💕",
+            "Never forget how special you are!",
+            "I love you. ew that was so gross 🤢 jk i love youu"
+        ];
+        
+        const gifs = [
+            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWZ0ZzRsd2FpbG5pMGlhd243ZHplZ2pzbHN3d2owZ20xbWdsMGs3NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sr8jYZVVsCmxddga8w/giphy.gif", // cute cat
+            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExenJrbGt3eHczMWtrYm9rdTdnMm5hZzJ0djlja2Vuczd6bWdrdjE4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MWSRkVoNaC30A/giphy.gif",
+            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW13cG9uZXl2NW1objgwczV1MXJjbXpyZDBrb3FndDRpOTk0amdnbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/liamKgDNyZi3C/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NDl0ZGk2NWZjczVoMDN3NGpwMjU2N3locG1qYmZieHQya3AzMmlhZiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/IMmOT1NAUsj7y/giphy.gif",
+            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHU4ZHBzczE4ajJscnN6ejlpOTFuaHh4MGZjb25zenhwcTBvcGg5NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUPGcyi4YxcZp8dWZq/giphy.gif",
+            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExamphNTNtaWtpeG0zcjFzaHo5bm94cWZidGdxNnAyZXE1YTJkcHNubSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n3CPaLVzMAtLw0byyw/giphy.gif", 
+            "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+        ];
+        
+        const button = document.getElementById('mainButton');
+        const gifContainer = document.getElementById('gifContainer');
+        const messageDiv = document.getElementById('message');
+        const resetButton = document.getElementById('resetButton');
+        
+        function createSparkles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (x + Math.random() * 20 - 10) + 'px';
+                sparkle.style.top = (y + Math.random() * 20 - 10) + 'px';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        }
+        
+        function showMessage() {
+            // Hide GIF first for smooth transition
+            gifContainer.classList.remove('show');
+            
+            setTimeout(() => {
+                // Change the GIF source
+                const gifImg = document.getElementById('loadingImage');
+                gifImg.src = gifs[clickCount];
+                
+                // Show GIF with new image
+                gifContainer.classList.add('show');
+                
+                // Then show message after a delay
+                setTimeout(() => {
+                    messageDiv.classList.add('show');
+                    messageDiv.querySelector('p').textContent = messages[clickCount];
+                    
+                    clickCount++;
+                    
+                    // If we've shown all messages, reset the counter
+                    if (clickCount >= messages.length) {
+                        isFinished = true;
+                        resetButton.classList.add('show');
+                        button.disabled = true;
+                        button.style.opacity = '0.5';
+                        button.style.cursor = 'not-allowed';
+                        button.textContent = 'All done!';
+                        clickCount = 0;
+                    }
+                }, 600);
+            }, 300);
+        }
+        
+        function resetCard() {
+            clickCount = 0;
+            isFinished = false;
+            gifContainer.classList.remove('show');
+            messageDiv.classList.remove('show');
+            resetButton.classList.remove('show');
+
+            // Re-enable the main button
+            button.disabled = false;
+            button.style.opacity = '1';
+            button.style.cursor = 'pointer';
+            button.textContent = 'Press Me!（＾ｖ＾）';
+            
+            // Reset to first GIF and message
+            setTimeout(() => {
+                const gifImg = document.getElementById('loadingImage');
+                gifImg.src = gifs[0];
+                messageDiv.querySelector('p').textContent = messages[0];
+            }, 300);
+        }
+        
+        button.addEventListener('click', function(e) {
+            if (isFinished) {
+                return;
+            }
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            createSparkles(e.clientX, e.clientY);
+            showMessage();
+        });
+        
+        resetButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetCard();
+        });
+        
+        // Add some initial sparkle
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createSparkles(x, y);
+        }, 3000);
+    </script>
+</body>
+</html>
